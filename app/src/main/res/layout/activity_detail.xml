@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewsDetails.DetailActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appbar"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            app:contentInsetStart="0dp"
+            app:contentInsetLeft="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary">
+            <RelativeLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:visibility="visible"
+                android:background="@color/green">
+
+
+                <ImageView
+                    android:id="@+id/close_image"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:src="@drawable/ic_baseline_arrow_white" />
+
+
+                <TextView
+                    android:id="@+id/search_ed"
+                    android:layout_width="@dimen/_220sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:gravity="bottom"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_toRightOf="@+id/close_image"
+                    android:background="@android:color/transparent"
+                    android:hint=" search"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ffff"
+                    android:textColorHint="#ffff"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/url_text"
+                    android:layout_width="@dimen/_220sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_below="@+id/search_ed"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:gravity="top"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_toRightOf="@+id/close_image"
+                    android:background="@android:color/transparent"
+                    android:hint="  url"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ffff"
+                    android:textColorHint="#ffff"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="normal" />
+
+                <ImageView
+                    android:id="@+id/share_img"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/ic_baseline_share_24"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webview"
+        android:layout_below="@+id/appbar"
+        />
+
+</RelativeLayout>
