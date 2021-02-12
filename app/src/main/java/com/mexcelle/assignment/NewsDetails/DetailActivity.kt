@@ -2,9 +2,6 @@ package com.mexcelle.assignment.NewsDetails
 
 import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.PorterDuff
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,16 +10,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
+import com.mexcelle.assignment.NewsList.Pojo.ArticlesItem
 import com.mexcelle.assignment.R
+import com.squareup.picasso.Picasso
 
 class DetailActivity : AppCompatActivity() {
 
     var webView:WebView?=null
-    var searchTv:TextView?=null
+    var titleTV:TextView?=null
+    var contentTv:TextView?=null
+    var description:TextView?=null
     var urlTv:TextView?=null
     var shareIV:ImageView?=null
     var closeIV:ImageView?=null
+    var newsImagev:ImageView?=null
     var toolbar:Toolbar?=null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -30,11 +35,14 @@ class DetailActivity : AppCompatActivity() {
 
        // toolbar = findViewById(R.id.toolbar2)
 
-        closeIV = findViewById(R.id.close_image)
+        titleTV = findViewById(R.id.title_tv)
+        contentTv = findViewById(R.id.content_tv)
+        description = findViewById(R.id.details_tv)
+        closeIV=findViewById(R.id.close_image)
+        newsImagev = findViewById(R.id.imageView)
         shareIV = findViewById(R.id.share_img)
-        searchTv = findViewById(R.id.search_ed)
         urlTv = findViewById(R.id.url_text)
-        webView = findViewById(R.id.webview)
+   /*     webView = findViewById(R.id.webview)
         webView!!.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY)
         webView!!.getSettings().setBuiltInZoomControls(true)
         webView!!.getSettings().setUseWideViewPort(true)
@@ -58,26 +66,38 @@ class DetailActivity : AppCompatActivity() {
             }
 
             override fun onReceivedError(
-                view: WebView,
-                errorCode: Int,
-                description: String,
-                failingUrl: String
+                    view: WebView,
+                    errorCode: Int,
+                    description: String,
+                    failingUrl: String
             ) {
                 Toast.makeText(
-                    this@DetailActivity,
-                    "Error:$description",
-                    Toast.LENGTH_SHORT
+                        this@DetailActivity,
+                        "No internet Connection",
+                        Toast.LENGTH_SHORT
                 ).show()
             }
         })
-        webView!!.loadUrl(intent.getStringExtra("mUrl").toString())
+        webView!!.loadUrl(intent.getStringExtra("mUrl").toString())*/
 
+        val mImageurl = intent.getStringExtra("mImageurl")
+        val mContent = intent.getStringExtra("mContent")
+        val mDescription = intent.getStringExtra("mDescription")
+        val mpublishedAt = intent.getStringExtra("mpublishedAt")
+        val mauthor = intent.getStringExtra("mauthor")
+        val mTittle = intent.getStringExtra("mTittle")
 
-        val mUrl = intent.getStringExtra("mUrl")
-        val title = intent.getStringExtra("title")
+            titleTV!!.text=mTittle
+        description!!.text=mDescription
+        contentTv!!.text=mContent
 
-        searchTv!!.text=title
-        urlTv!!.text=mUrl
+        if (mImageurl!!.isEmpty()) {
+            newsImagev!!.setImageResource(R.drawable.exp);
+        } else{
+            Picasso.with(this).load(mImageurl).placeholder(R.drawable.exp).fit().centerCrop()
+                    .into(newsImagev)
+        }
+        newsImagev
         val url: String = intent.getStringExtra("mUrl").toString()
         Log.e("data", url)
 

@@ -7,6 +7,7 @@ class NewsListMVPContract {
     //methods call from Presenter to Activity
     interface ViewOperationsCallBack  {
         fun updateScreenWithNews()
+        fun showSnackBaar()
     }
 
     //methods call from Activity to Presenter
@@ -18,6 +19,7 @@ class NewsListMVPContract {
     interface ModelPresenterOperationCallBack  {
         fun onAPIResponseFailure(context: Context?, error: String?)
         fun onAPIResponseSuccess(context: Context?)
+        fun onAPIResponseError(context: Context?)
     }
 
     //methods call from Presenter to Interactor

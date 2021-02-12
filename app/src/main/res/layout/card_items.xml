@@ -17,7 +17,7 @@
         app:cardCornerRadius="@dimen/_8sdp">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -30,6 +30,7 @@
 
             <TextView
                 android:id="@+id/textView"
+                android:layout_below="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_8sdp"
@@ -43,13 +44,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_below="@+id/textView"
                 android:layout_marginRight="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="Description"
+                android:text="Source"
                 android:textSize="@dimen/_12ssp" />
 
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+
+                android:text="Date"
+                android:layout_below="@+id/textView"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:textSize="@dimen/_12ssp" />
+
+
+        </RelativeLayout>
 
 
     </androidx.cardview.widget.CardView>

@@ -42,4 +42,10 @@ class NewsListPresenter(mView: NewsListMVPContract.ViewOperationsCallBack): News
 
 
     }
+
+    override fun onAPIResponseError(context: Context?) {
+        mView?.get()?.showSnackBaar()
+
+
+    }
 }

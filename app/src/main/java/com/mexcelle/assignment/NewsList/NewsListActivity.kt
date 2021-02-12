@@ -1,6 +1,9 @@
 package com.mexcelle.assignment.NewsList
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,11 +17,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.material.snackbar.Snackbar
 import com.mexcelle.assignment.NewsList.Adapter.NewsListAdapter
 import com.mexcelle.assignment.NewsList.Pojo.ArticlesItem
 import com.mexcelle.assignment.R
 import com.mexcelle.assignment.Util.Utility
 import java.util.*
+
 
 class NewsListActivity : AppCompatActivity() , NewsListMVPContract.ViewOperationsCallBack{
 
@@ -40,7 +45,37 @@ class NewsListActivity : AppCompatActivity() , NewsListMVPContract.ViewOperation
 
         startMVP()
         Init()
-        mPresenter?.fetchNews(this);
+
+        mPresenter?.fetchNews(this@NewsListActivity);
+
+        /*if (Utility.chkStatus(this))
+        {
+
+        }
+        else
+        {
+            val snack = Snackbar.make(findViewById(R.id.parent_layout),"This is a simple Snackbar",Snackbar.LENGTH_LONG)
+            snack.setAction("DISMISS", View.OnClickListener {
+                // executed when DISMISS is clicked
+
+                if (Utility.chkStatus(this))
+                {
+                    mPresenter?.fetchNews(this@NewsListActivity);
+
+                }
+                else
+                {
+                    snack.show()
+                }
+
+
+            }).setDuration(Snackbar.LENGTH_INDEFINITE)
+            snack.show()
+        }*/
+
+
+
+
         mWaveSwipeRefreshLayout!!.setColorSchemeResources(R.color.green);
         mWaveSwipeRefreshLayout!!.setOnRefreshListener {
 
@@ -69,6 +104,12 @@ class NewsListActivity : AppCompatActivity() , NewsListMVPContract.ViewOperation
                         // Stuff that updates the UI
                         statusTextView!!.text = "Offline"
                         statusImageView!!.setImageDrawable(resources.getDrawable(R.drawable.away, null))
+                        /*val snack = Snackbar.make(findViewById(R.id.parent_layout),"This is a simple Snackbar",Snackbar.LENGTH_LONG)
+                        snack.setAction("DISMISS", View.OnClickListener {
+
+                        }).setDuration(Snackbar.LENGTH_INDEFINITE)
+                        snack.show()*/
+
 
 
                     }
@@ -118,9 +159,28 @@ class NewsListActivity : AppCompatActivity() , NewsListMVPContract.ViewOperation
         mWaveSwipeRefreshLayout!!.setRefreshing(false);
 
     }
+
+    override fun showSnackBaar() {
+        val snack = Snackbar.make(findViewById(R.id.parent_layout),"No internet Connection",Snackbar.LENGTH_LONG)
+        snack.setAction("Retry", View.OnClickListener {
+            // executed when DISMISS is clicked
+
+
+                mPresenter?.fetchNews(this@NewsListActivity);
+
+
+
+
+
+        }).setDuration(Snackbar.LENGTH_INDEFINITE)
+        snack.show()
+
+    }
+
     private fun startMVP() {
 
         mPresenter = NewsListPresenter(this)
 
     }
+
 }
