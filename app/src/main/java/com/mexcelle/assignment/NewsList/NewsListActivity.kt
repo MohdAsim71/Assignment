@@ -1,7 +1,11 @@
 package com.mexcelle.assignment.NewsList
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,12 +23,16 @@ import java.util.*
 class NewsListActivity : AppCompatActivity() , NewsListMVPContract.ViewOperationsCallBack{
 
     private var mRecyclerView: RecyclerView? = null
+    private var statusImageView: ImageView? = null
+    private var statusTextView: TextView? = null
     private var newsListAdapter: NewsListAdapter? = null
     var articlesList: ArrayList<ArticlesItem>? = null
     private var mRequestQueue: RequestQueue? = null
     private var mWaveSwipeRefreshLayout: SwipeRefreshLayout?=null
     var shimmerFrameLayout: ShimmerFrameLayout? = null
     private var mPresenter: NewsListPresenter? = null
+    var statusTimer: Timer? = Timer()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +49,42 @@ class NewsListActivity : AppCompatActivity() , NewsListMVPContract.ViewOperation
 
 
         }
+        statusTimer?.schedule(object : TimerTask() {
+
+            @SuppressLint("NewApi")
+            override fun run() {
+                Log.e("timer", "timer is running")
+
+                if (Utility.chkStatus(this@NewsListActivity)) {
+                    runOnUiThread {
+                        // Stuff that updates the UI
+                        statusTextView!!.text = "Online"
+                        statusImageView!!.setImageDrawable(resources.getDrawable(R.drawable.online, null))
+
+
+                    }
+                } else {
+
+                    runOnUiThread {
+                        // Stuff that updates the UI
+                        statusTextView!!.text = "Offline"
+                        statusImageView!!.setImageDrawable(resources.getDrawable(R.drawable.away, null))
+
+
+                    }
+
+                }
+
+            }
+        }, 0, 10000)
+
+
 
     }
 
     private fun Init() {
+        statusImageView = findViewById<View>(R.id.online_status_iv) as ImageView
+        statusTextView = findViewById<View>(R.id.online_status_tv) as TextView
         mRecyclerView = findViewById<View>(R.id.recyclerView) as RecyclerView
         mRecyclerView!!.setHasFixedSize(true)
         mRecyclerView!!.setLayoutManager(LinearLayoutManager(this))
@@ -65,7 +105,6 @@ class NewsListActivity : AppCompatActivity() , NewsListMVPContract.ViewOperation
         super.onPause()
         shimmerFrameLayout!!.stopShimmerAnimation()
     }
-
 
 
     override fun updateScreenWithNews() {
