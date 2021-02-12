@@ -1,8 +1,9 @@
 package com.mexcelle.assignment.NewsList
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -13,7 +14,7 @@ import com.mexcelle.assignment.NewsList.Adapter.NewsListAdapter
 import com.mexcelle.assignment.NewsList.Pojo.ArticlesItem
 import com.mexcelle.assignment.R
 import com.mexcelle.assignment.Util.Utility
-import java.util.ArrayList
+import java.util.*
 
 class NewsListActivity : AppCompatActivity() , NewsListMVPContract.ViewOperationsCallBack{
 
@@ -36,6 +37,8 @@ class NewsListActivity : AppCompatActivity() , NewsListMVPContract.ViewOperation
         mWaveSwipeRefreshLayout!!.setOnRefreshListener {
 
             mPresenter?.fetchNews(this);
+            Toast.makeText(this@NewsListActivity, "Updated", Toast.LENGTH_SHORT).show()
+
 
         }
 

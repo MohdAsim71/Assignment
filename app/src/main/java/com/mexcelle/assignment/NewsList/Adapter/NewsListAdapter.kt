@@ -5,9 +5,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.hashmi.MLTClasses.Animation.MyBounceInterpolator
 import com.mexcelle.assignment.NewsDetails.DetailActivity
 import com.mexcelle.assignment.NewsList.Pojo.ArticlesItem
 import com.mexcelle.assignment.R
@@ -39,6 +41,13 @@ class NewsListAdapter(
         val mUrl: String = mCurrentItem.url.toString()
         val mContent: String = mCurrentItem.content.toString()
         holder.mTextView.text = mTittle
+
+
+        var animation = AnimationUtils.loadAnimation(context,R.anim.button_animation)
+        var interpolator = MyBounceInterpolator(0.1,20.0)
+        animation.setInterpolator(interpolator)
+        holder.itemView.animation = animation
+
 
         if (mContent==null)
         {

@@ -20,7 +20,7 @@ import java.util.HashMap
 class NewsListInterecter(mPresenter: NewsListPresenter) : NewsListMVPContract.ModelOperations {
 
     private var mPresenter: NewsListMVPContract.ModelPresenterOperationCallBack? = null
-//    private val mView: WeakReference<NewsListMVPContract.ViewOperationsCallBack>? = null
+   private val mView: WeakReference<NewsListMVPContract.ViewOperationsCallBack>? = null
 
 
     init {
